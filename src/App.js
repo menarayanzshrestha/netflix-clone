@@ -4,6 +4,7 @@ import "./App.css";
 import requests from "./requests";
 import Banner from "./Banner";
 import Navbar from "./Navbar";
+import * as Sentry from "@sentry/react";
 
 function App() {
   return (
@@ -15,6 +16,14 @@ function App() {
         fetchUrl={requests.fetchNetflixOriginals}
         isLargeRow={true}
       />
+      <button
+        type="button"
+        onClick={() => {
+          throw Error("OOpps");
+        }}
+      >
+        Donot click
+      </button>
       <Row title="Trending Now" fetchUrl={requests.fetchTrending} />
       <Row title="Top Rated" fetchUrl={requests.fetchTopRated} />
       <Row title="Action Movies" fetchUrl={requests.fetchActionMovies} />
@@ -26,4 +35,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.withProfiler(App);
