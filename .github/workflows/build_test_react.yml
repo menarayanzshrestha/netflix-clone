@@ -1,12 +1,12 @@
 name: Deploy React Application
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [master]
   pull_request:
-    branches: [ main ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x] # We will deploy with only one version of node  
+        node-version: [14.x] # We will deploy with only one version of node
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,113 +30,9 @@ jobs:
         run: |
           npm ci
           npm run build --if-present
-          npm test      
-      - name: deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build          
-Step 6: Commit your changes
-Commit your changes to a new branch
-Create a PR onto main branch
-Please check this commit for cumulative changes.
-
-If the GithHub Action run successfully ✔️
-
-You should see A commit to your deploy branch (Ex: `gh-pages)
-gh-pages commit
-
-Your React app should be hosted on your homepage
-Hosted App
-
-Congratulations 👏. You have now setup a workflow to deploy your react application 👍.
-
-Merge your PR if everything looks good 😉
-
-Thanks for reading through the entire article. Please reach out with questions, comments and/or feedback.
-
-react (4 Part Series)
-1
-Create a todo list in React
-2
-Testing React app with Jest
-3
-Build and Test React app with GitHub Actions
-4
-Deploy React App using GitHub Actions
-Discussion (0)
-Subscribe
-pic
-Add to the discussion
-Code of Conduct • Report abuse
-Read next
-franciscomendes10866 profile image
-How to Create Modern Cards using React and Tailwind
-Francisco Mendes - Nov 13
-
-alserembani profile image
-[ReactJS] From Javascript to Typescript
-Atif Aiman - Nov 22
-
-franciscomendes10866 profile image
-How to Create a Notification/Toast using React and Tailwind
-Francisco Mendes - Nov 20
-
-felipemsfg profile image
-Telegram notification with Github Actions
-Felipe Marques - Nov 8
-
-
-Aditya Chukka
-Follow
-EDUCATION
-Masters in Computer Science
-WORK
-Software Engineer at Bloomberg LP
-JOINED
-May 15, 2021
-More from Aditya Chukka
-Add PostgreSQL to Express Server
-#node #express #postgres #typescript
-Routing Requests in Node Server
-#node #express #typescript #requestforpost
-Create Server using Express and TypeScript
-#react #node #express #typescript
-name: Deploy React Application
-
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  build_test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x] # We will deploy with only one version of node  
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm ci, build and test
-        run: |
-          npm ci
-          npm run build --if-present
-          npm test      
+          npm test
       - name: deploy to hosting page
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build          
+          publish_dir: ./build
