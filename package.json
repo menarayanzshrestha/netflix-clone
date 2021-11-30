@@ -2,6 +2,7 @@
   "name": "netflix-clone",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://menarayanzshrestha.github.io/netflix-clone",
   "dependencies": {
     "@sentry/react": "^6.13.2",
     "@sentry/tracing": "^6.13.2",
